@@ -5,7 +5,7 @@ from jericho import *
 
 
 class GameEnv:
-    def __init__(self, game_path, seed = None, done = False):
+    def __init__(self, game_path, seed = None, done = True):
         self.game_path      = game_path
         self.env            = None
         self.seed           = seed
@@ -15,7 +15,7 @@ class GameEnv:
         self.reward         = []
         self.vocab          = None
         self.state          = None
-        self.initial_game()
+        #self.initial_game()
 
 
     def run_loop(self):
@@ -58,7 +58,7 @@ class GameEnv:
     def get_infos_in_str(self):
         return str(self.info)
 
-    def set_action(self, action):
+    def do_act(self, action):
         observation, reward, done, info = self.env.step(action)
         self.observation.append(observation)
         self.reward.append(reward)

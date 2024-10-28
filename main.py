@@ -1,6 +1,6 @@
-from src.Game import game_env, game_zork_test
-from src.LLM_Model.game_bot import GameBot
-
+from src import game_env
+from src.game_bot import GameBot
+from src.game_zork_training_test import run_training
 
 done = True
 DICT = "/media/jinming/Disk/Jinming/LLM/"
@@ -19,19 +19,15 @@ def get_game_path(game_index = 0, game_name = ""):
 def get_game_env(game_index = 0, game_name = ""):
     game_path, game_types = get_game_path(game_index, game_name)
 
-    match game_types:
-        case game_env.GameType.none :
-            return game_env.GameEnv(game_path)
-        case game_env.GameType.Zork_1 :
-            return game_zork_test.ZorkEnv(game_path)
-
-    return None
+    return game_env.GameEnv(game_path)
 
 
 
 def run_test():
-    model = GameBot(MODEL_NAME)
-    game = get_game_env(1)
+    model = GameBot(MODEL_NAME) # loading LLM model
+    game = get_game_env(1) # loading game env
+    run_training(model, game)
+
 
 
 if __name__ == "__main__":
